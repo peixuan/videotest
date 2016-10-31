@@ -1,0 +1,3 @@
+if(MSVC_VERSION GREATER_EQUAL 1600) # VS2010 or newer
+    add_subdirectory(MFCDlgMainApp)
+endif(MSVC_VERSION GREATER_EQUAL 1600)
