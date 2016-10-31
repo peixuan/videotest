@@ -2,3 +2,4 @@ syntax: glob
 build/
 include/
 library/
+source/gui/MFCDlgMainApp/MFCMainApp.aps
