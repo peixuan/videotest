@@ -76,6 +76,9 @@ BEGIN_MESSAGE_MAP(CMFCMainDlg, CDialogEx)
   ON_WM_SYSCOMMAND()
   ON_WM_PAINT()
   ON_WM_QUERYDRAGICON()
+  ON_WM_CLOSE()
+  ON_WM_GETMINMAXINFO()
+  ON_WM_SIZE()
 END_MESSAGE_MAP()
 
 /*****************************************************************************
@@ -230,4 +233,91 @@ void CMFCMainDlg::OnPaint()
 HCURSOR CMFCMainDlg::OnQueryDragIcon()
 {
   return static_cast<HCURSOR>(m_hIcon);
+}
+
+/*****************************************************************************
+ *
+ * FUNCTION: OnOK()
+ * PURPOSE : Overload base class function OnOK() for CMFCMainDlg.
+ * AUTHOR  : Peixuan Zhang <Zhang@PoeticFlower.CN>
+ * COMMENTS: Shield the response of Enter key to prevent the program
+ *           unexpectedly quits. (We must use it, when using a dialog-based
+ *           application.)
+ *
+ *****************************************************************************/
+
+void CMFCMainDlg::OnOK()
+{
+  return;
+}
+
+/*****************************************************************************
+ *
+ * FUNCTION: OnCancel()
+ * PURPOSE : Overload base class function OnCancel() for CMFCMainDlg.
+ * AUTHOR  : Peixuan Zhang <Zhang@PoeticFlower.CN>
+ * COMMENTS: Shield the response of ESC key to prevent the program
+ *           unexpectedly quits. (We must use it, when using a dialog-based
+ *           application.)
+ *
+ *****************************************************************************/
+
+void CMFCMainDlg::OnCancel()
+{
+  return;
+}
+
+/*****************************************************************************
+ *
+ * FUNCTION: OnClose()
+ * PURPOSE : Response message WM_CLOSE for CMFCMainDlg.
+ * AUTHOR  : Peixuan Zhang <Zhang@PoeticFlower.CN>
+ * COMMENTS: Clean up memory and close the main dialog. We must explicitly
+ *           implement it, because we have shielded the Enter and ESC keys.
+ *
+ *****************************************************************************/
+
+void CMFCMainDlg::OnClose()
+{
+  // TODO: Clean up memory.
+
+  CDialogEx::OnClose();
+
+  // Close the Main Dialog.
+  CDialogEx::OnOK();
+}
+
+/*****************************************************************************
+ *
+ * FUNCTION: OnGetMinMaxInfo()
+ * PURPOSE : Response message WM_GETMINMAXINFO for CMFCMainDlg.
+ * AUTHOR  : Peixuan Zhang <Zhang@PoeticFlower.CN>
+ * COMMENTS: Set the minimum size of the application dialog box. If the
+ *           window is too small, we can not make the appropriate control
+ *           layout.
+ *
+ *****************************************************************************/
+
+void CMFCMainDlg::OnGetMinMaxInfo(MINMAXINFO* lpMMI)
+{
+  lpMMI->ptMinTrackSize.x = 320;
+  lpMMI->ptMinTrackSize.y = 240;
+
+  CDialogEx::OnGetMinMaxInfo(lpMMI);
+}
+
+/*****************************************************************************
+ *
+ * FUNCTION: OnSize()
+ * PURPOSE : Response message WM_SIZE for CMFCMainDlg.
+ * AUTHOR  : Peixuan Zhang <Zhang@PoeticFlower.CN>
+ * COMMENTS: Dynamic layout controls.
+ *
+ *****************************************************************************/
+
+void CMFCMainDlg::OnSize(UINT nType, int cx, int cy)
+{
+  CDialogEx::OnSize(nType, cx, cy);
+
+  // TODO: Add your message handler code here
 }
