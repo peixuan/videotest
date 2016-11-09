@@ -1,0 +1,8 @@
+﻿#ifndef   BASEFRAMEWORK_THREADING_WRAPPER_H_
+#define   BASEFRAMEWORK_THREADING_WRAPPER_H_
+
+namespace BaseFramework
+{
+}
+
+#endif // BASEFRAMEWORK_THREADING_WRAPPER_H_
