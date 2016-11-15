@@ -3,6 +3,78 @@
 
 namespace BaseFramework
 {
+
+#ifdef _WIN32
+typedef HANDLE    ThreadHandle;
+#else  //  POSIX
+typedef pthread_t ThreadHandle;
+#endif // _WIN32
+
+class Lock
+{
+public:
+  Lock();
+  ~Lock();
+  void Acquire();
+  void Release();
+protected:
+#ifdef _WIN32
+  CRITICAL_SECTION m_handle;
+#else  //  POSIX
+  pthread_mutex_t  m_handle;
+#endif // _WIN32
+};
+
+class Event
+{
+public:
+  Event();
+  ~Event();
+  void Wait();
+  bool TimedWait(uint32_t milliseconds);
+  void Trigger();
+protected:
+#ifdef _WIN32
+  HANDLE          m_handle;
+#else  //  POSIX
+  pthread_mutex_t m_mutex;
+  pthread_cond_t  m_cond;
+  uint32_t        m_counter;
+#endif // _WIN32
+};
+
+class ScopedLock
+{
+public:
+  ScopedLock(Lock &instance)
+    : m_instance(instance)
+  {
+    this->m_instance.Acquire();
+  }
+  ~ScopedLock()
+  {
+    this->m_instance.Release();
+  }
+protected:
+  // do not allow assignments
+  ScopedLock &operator =(const ScopedLock &);
+  Lock       &m_instance;
+};
+
+class ThreadingWrapper
+{
+public:
+  ThreadingWrapper();
+  virtual ~ThreadingWrapper();
+  // Returns true if thread was successfully created.
+  bool Start();
+  void Stop();
+  // Derived class must implement ThreadMain.
+  virtual void ThreadMain() = 0;
+private:
+  ThreadHandle m_thread;
+};
+
 }
 
 #endif // BASEFRAMEWORK_THREADING_WRAPPER_H_
