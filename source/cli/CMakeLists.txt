@@ -3,10 +3,25 @@ file(GLOB CLI_SOURCE_FILES
     cli_main.cpp
     )
 
+include_directories(
+    .
+    ${OpenCV_INCLUDE_DIRS}
+    )
+
 add_executable(cli_app
     ${CLI_SOURCE_FILES}
     )
 
-target_link_libraries(cli_app
-    common
-    )
+if   (WIN32)
+    target_link_libraries(cli_app
+        common
+        ${OpenCV_LIBS}
+        ${FFMPEG_LIBRARIES}
+        )
+else (WIN32)
+    target_link_libraries(cli_app
+        common
+        ${OpenCV_LIBS}
+        ${FFMPEG_LIBRARIES}
+        )
+endif(WIN32)
