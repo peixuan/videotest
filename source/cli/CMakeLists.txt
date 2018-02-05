@@ -6,6 +6,7 @@ file(GLOB CLI_SOURCE_FILES
 include_directories(
     .
     ${OpenCV_INCLUDE_DIRS}
+    ${FFMPEG_INCLUDE_DIRS}
     )
 
 add_executable(cli_app
