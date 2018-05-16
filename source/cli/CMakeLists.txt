@@ -7,6 +7,7 @@ include_directories(
     .
     ${OpenCV_INCLUDE_DIRS}
     ${FFMPEG_INCLUDE_DIRS}
+    ${SDL2_INCLUDE_DIR}
     )
 
 add_executable(cli_app
@@ -18,11 +19,13 @@ if   (WIN32)
         common
         ${OpenCV_LIBS}
         ${FFMPEG_LIBRARIES}
+        ${SDL2_LIBRARY}
         )
 else (WIN32)
     target_link_libraries(cli_app
         common
         ${OpenCV_LIBS}
         ${FFMPEG_LIBRARIES}
+        ${SDL2_LIBRARY}
         )
 endif(WIN32)
