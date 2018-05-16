@@ -39,6 +39,7 @@ endif(MSVC)
 
 find_package(FFmpeg REQUIRED)
 find_package(OpenCV REQUIRED)
+find_package(SDL2 REQUIRED)
 
 add_subdirectory(thirdparty)
 add_subdirectory(common)
