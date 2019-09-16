@@ -43,5 +43,6 @@ find_package(SDL2 REQUIRED)
 
 add_subdirectory(thirdparty)
 add_subdirectory(common)
+add_subdirectory(BaseClassLibrary)
 add_subdirectory(cli)
 add_subdirectory(gui)
